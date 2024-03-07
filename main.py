@@ -20,3 +20,10 @@ def register_user(user: User):
     list_users[user.username] = user
     return {"message": "Usuario registrado exitosamente"}
 
+
+@app.get("/api/v1/user/{username}")
+def get_user(username: str):
+    user = list_users.get(username)
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    return user
